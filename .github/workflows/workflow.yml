@@ -2,7 +2,7 @@ name: Deploy App to Server
 
 on:
   push:
-    tags:
+    branches:
       - main
 
 jobs:
@@ -31,7 +31,8 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/coker:latest
+
 
   deploy-prod:
     runs-on: ubuntu-latest
@@ -45,8 +46,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-           sudo docker stop coker
-           sudo docker rm coker
-           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/docker
-           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/docker
-           sudo docker run -d -p 80:80 -e SERVERPORT=${{ secrets.SERVERPORT }} -e DBUSER=${{ secrets.DBUSER }} -e DBPASS=${{ secrets.DBPASS }} -e DBHOST=${{ secrets.DBHOST }} -e DBPORT=${{ secrets.DBPORT }} -e DBNAME=${{ secrets.DBNAME }} --name coker ${{ secrets.DOCKERHUB_USERNAME }}/docker:latest
+            sudo docker stop docker
+            sudo docker rm docker
+            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/coker:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/coker:latest
+            sudo docker run -d -p 8080:8080 -e  SERVERPORT=${{ secrets.SERVERPORT }} -e DBUSER=${{ secrets.DBUSER }} -e DBPASS=${{ secrets.DBPASS }} -e DB_HOST=${{ secrets.DBHOST }} -e DBPORT=${{ secrets.DBPORT }} -e DBNAME=${{ secrets.DBNAME }} --name docker ${{ secrets.DOCKERHUB_USERNAME }}/coker:latest
