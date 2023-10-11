@@ -27,3 +27,5 @@ func InitRouter(e *echo.Echo, db *gorm.DB) {
 	//endpoint
 	e.GET("/users", userController.GetUserController)
 }
+
+
