@@ -45,8 +45,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            docker stop coker
-            docker rm coker
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/docker
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/docker
-            docker run -d -p 80:80 -e SERVERPORT=${{ secrets.SERVERPORT }} -e DBUSER=${{ secrets.DBUSER }} -e DBPASS=${{ secrets.DBPASS }} -e DBHOST=${{ secrets.DBHOST }} -e DBPORT=${{ secrets.DBPORT }} -e DBNAME=${{ secrets.DBNAME }} --name coker ${{ secrets.DOCKERHUB_USERNAME }}/docker:latest
+           sudo docker stop coker
+           sudo docker rm coker
+           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/docker
+           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/docker
+           sudo docker run -d -p 80:80 -e SERVERPORT=${{ secrets.SERVERPORT }} -e DBUSER=${{ secrets.DBUSER }} -e DBPASS=${{ secrets.DBPASS }} -e DBHOST=${{ secrets.DBHOST }} -e DBPORT=${{ secrets.DBPORT }} -e DBNAME=${{ secrets.DBNAME }} --name coker ${{ secrets.DOCKERHUB_USERNAME }}/docker:latest
